@@ -1377,6 +1377,119 @@ items:
       noArgs: false
       required: false
     required: true
+- target: taf
+  shortDesc: taf experiment
+  longDesc: Taf experiment for testing service delay and exception.
+  example: taf delay --time 3000 --client --servantname app.server.obj --functionname hello
+  actions:
+    - action: delay
+      shortDesc: delay time
+      longDesc: delay time...
+      matchers:
+        - name: effect-count
+          desc: The count of chaos experiment in effect
+          noArgs: false
+          required: false
+        - name: effect-percent
+          desc: The percent of chaos experiment in effect
+          noArgs: false
+          required: false
+        - name: servantname
+          desc: The name of servant
+          noArgs: false
+          required: false
+        - name: functionname
+          desc: The name of function to be invoked
+          noArgs: false
+          required: false
+        - name: servant
+          desc: to tag servant role experiment
+          noArgs: true
+          required: false
+        - name: client
+          desc: to tag the client role experiment
+          noArgs: true
+          required: false
+      flags:
+        - name: time
+          desc: delay time
+          noArgs: false
+          required: true
+        - name: offset
+          desc: delay offset for the time
+          noArgs: false
+          required: false
+        - name: process
+          desc: Application process name
+          noArgs: false
+          required: false
+        - name: pid
+          desc: The process id
+          noArgs: false
+          required: false
+    - action: throwCustomException
+      aliases: [tce]
+      shortDesc: throw custom exception
+      longDesc: Throw custom exception with --exception option
+      matchers:
+        - name: effect-count
+          desc: The count of chaos experiment in effect
+          noArgs: false
+          required: false
+        - name: effect-percent
+          desc: The percent of chaos experiment in effect
+          noArgs: false
+          required: false
+        - name: servantname
+            desc: The name of servant
+            noArgs: false
+            required: false
+        - name: functionname
+            desc: The name of function to be invoked
+            noArgs: false
+            required: false
+        - name: servant
+            desc: to tag servant role experiment
+            noArgs: true
+            required: false
+        - name: client
+            desc: to tag the client role experiment
+            noArgs: true
+            required: false
+        flags:
+          - name: exception
+            desc: Exception class inherit java.lang.Exception
+            noArgs: false
+            required: true
+          - name: exception-message
+            desc: Specify exception message for exception experiment, default value is chaosblade-mock-exception
+            noArgs: false
+            required: false
+          - name: process
+            desc: Application process name
+            noArgs: false
+            required: false
+          - name: pid
+            desc: The process id
+            noArgs: false
+            required: false
+  scope: host
+  prepare:
+    type: jvm
+    flags:
+      - name: process
+        desc: Java application process
+        noArgs: false
+        required: false
+      - name: javaHome
+        desc: Java home path
+        noArgs: false
+        required: false
+      - name: pid
+        desc: The process id of java application
+        noArgs: false
+        required: false
+    required: true
 - target: rocketmq
   shortDesc: Rocketmq experiment,can make message send or pull delay and exception
   longDesc: Rocketmq experiment,can make message send or pull delay and exception,default
